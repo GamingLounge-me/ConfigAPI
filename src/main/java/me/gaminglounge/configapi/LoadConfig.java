@@ -12,21 +12,23 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-public class LoadConfig {
-    private Gson gson;
-    private Map<String, JsonObject> configs;
-    private File configDir;
+public final class LoadConfig {
+    private final Gson gson;
+    public Map<String, JsonObject> lang;
+    private final File configDir;
     
     public LoadConfig() {
         gson = new Gson();
-        configs = new HashMap<>();
+        lang = new HashMap<>();
         configDir = ConfigAPI.INSTANCE.getDataFolder();
 
         loadConfig();
     }
 
     public void loadConfig() {
-        Map<String, JsonObject> tmp = new HashMap<>();
+        // creating temporary map for config
+        Map<String, JsonObject> tmpLang;
+        tmpLang = new HashMap<>();
 
         // creating plugin folder
         if (!configDir.exists()) configDir.mkdir();
@@ -45,7 +47,7 @@ public class LoadConfig {
                     ConfigAPI.INSTANCE.getLogger().log(Level.WARNING, file.getName());
 
                     try (InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "utf-8")) {
-                        tmp.put(plugin.getName()  + ":" + file.getName().replace(".json", ""), gson.fromJson(isr, JsonObject.class));
+                        tmpLang.put(plugin.getName()  + ":" + file.getName().replace(".json", ""), gson.fromJson(isr, JsonObject.class));
                     } catch (JsonSyntaxException syntaxException) {
                         ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE, "Synxtax error while loading the language file \"" + file.getName() + "\".", syntaxException);
                     } catch (IOException ioe) {
@@ -55,8 +57,8 @@ public class LoadConfig {
             }
         }
 
-        this.configs = tmp;
-        ConfigAPI.INSTANCE.getLogger().log(Level.INFO, this.configs.toString());
+        // saving loaded config
+        this.lang = tmpLang;
 
     }
 }

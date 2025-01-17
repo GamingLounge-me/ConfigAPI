@@ -55,10 +55,12 @@ public class Language {
     }
 
     public static String getValue(Plugin plugin, String lang, String key) {
+        lang = plugin.getName() + ":" + lang;
         return getValueI(plugin, lang, key);
     }
 
     public static String getValue(Plugin plugin, String lang, String key, boolean prefix) {
+        lang = plugin.getName() + ":" + lang;
         if (prefix) {
             return getValueI(plugin, lang, key);
         } else {

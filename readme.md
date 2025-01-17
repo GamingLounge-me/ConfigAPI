@@ -61,13 +61,13 @@ Language.getValue(this, Player, "key", true)
 #### Without prefix
 
 ```java
-String lanfCode = "Plugin:en_US";
+String lanfCode = "en_US";
 Language.getValue(this, langCode, "key")
 ```
 
 #### With prefix
 
 ```java
-String lanfCode = "Plugin:en_US";
+String lanfCode = "en_US";
 Language.getValue(this, lanfCode, "key", true)
 ```

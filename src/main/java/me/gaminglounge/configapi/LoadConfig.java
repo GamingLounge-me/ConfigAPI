@@ -29,29 +29,30 @@ public final class LoadConfig {
         loadConfig();
     }
 
-    public static void registerConfig(Plugin plugin, File file, InputStream is) {
+    public static void registerLanguage(Plugin plugin, String file, InputStream is) {
+        file = "lang/" + file;
+        registerConfig(plugin, file, is);
+    }
+
+    public static void registerLanguage(Plugin plugin, Map<String, InputStream> langs) {
+        registerConfig(plugin, "lang",langs);
+    }
+
+    private static void registerConfig(Plugin plugin, String file, InputStream is) {
+        Map<String, InputStream> lang = new HashMap<>();
+        lang.put(file, is);
+        registerConfig(plugin, "lang",lang);
+    }
+
+    private static void registerConfig(Plugin plugin, String subFolder, Map<String, InputStream> langs) {
         File folder = new File(ConfigAPI.CONFIG.configDir, plugin.getName());
         if (!folder.exists()) folder.mkdir();
 
-        if (!file.exists()) {
-            try (
-                FileOutputStream fos = new FileOutputStream(file);
-            ) {
-                is.transferTo(fos);
-                fos.flush();
-            } catch (IOException ioe) {
-                // ignore
-            }
-        }    
-        ConfigAPI.CONFIG.loadConfig();
-    }
-
-    public static void registerConfig(Plugin plugin, Map<String, InputStream> langs) {
-        File folder = new File(ConfigAPI.CONFIG.configDir, plugin.getName());
+        File subfolder = new File(folder, subFolder);
         if (!folder.exists()) folder.mkdir();
         
         for (Map.Entry<String, InputStream> entry : langs.entrySet()) {
-            File file = new File(folder, entry.getKey());
+            File file = new File(subfolder, entry.getKey());
             if (!file.exists()) {
                 writeConf(file, entry.getValue());
             } else {

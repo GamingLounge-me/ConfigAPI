@@ -8,43 +8,50 @@ import org.bukkit.plugin.Plugin;
 public class Language {
 
     private static String getPrefix(Plugin plugin, String lang) {
-        lang = plugin.getName() + ":" + lang;
-        if (ConfigAPI.CONFIG.lang.get(lang).has("prefix")) {
-            return ConfigAPI.CONFIG.lang.get(lang).get("prefix").getAsString(); 
-        } else if (ConfigAPI.CONFIG.lang.get("en_us").has("prefix")) {
-            return ConfigAPI.CONFIG.lang.get("en_us").get("prefix").getAsString(); 
-        } else {
-            throw new IllegalArgumentException("The translation key \"prefix\" is not set.");
-        }
+        String pluginName = plugin.getName();
+
+        String playerLang = getKey(lang, "prefix");
+        if (playerLang != null) return playerLang;
+
+        String defaultLang = getKey(pluginName + ":" + "en_US", "prefix");
+        if (defaultLang != null) return defaultLang;
+
+        ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE, "Missing language key \"prefix\" in {1} and the default language, please contact an admin.", new Object[]{lang});
+        return null;
     }
     
-    private static String getLangCode(Player p) {
-        String locale = p.locale().toString();
+    private static String getLangCode(Plugin plugin, Player p) {
+        String locale = plugin.getName() + ":" + p.locale().toString();
         if (!ConfigAPI.CONFIG.lang.containsKey(locale)) {
-            locale = "en_us";
+            locale = plugin.getName() + ":" + "en_US";
         }
-        ConfigAPI.INSTANCE.getLogger().log(Level.WARNING, locale);
         return locale;
     }
 
     private static String getValueI(Plugin plugin, String lang, String key) {
-        lang = plugin.getName() + ":" + lang;
+        String playerLang = getKey(lang, key);
+        if (playerLang != null) return playerLang;
+
+        lang = plugin.getName() + ":" + "en_US";
         if (ConfigAPI.CONFIG.lang.containsKey(lang)) {
             if (ConfigAPI.CONFIG.lang.get(lang).has(key)) {
                 return ConfigAPI.CONFIG.lang.get(lang).get(key).getAsString(); 
             } else {
-                ConfigAPI.INSTANCE.getLogger().log(Level.WARNING, "The language \"{0}\" doesn''t have the tranlation for the key \"{1}\".", new Object[]{lang, key});
+                ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE, "The default language \"{0}\" doesn't have the tranlation for the key \"{1}\".", new Object[]{lang, key});
             }
         }
-        lang = "en_us";
+        return "Missing language key \"" + key + "\" for \"" + lang + "\", please contact an admin.";
+    }
+
+    private static String getKey(String lang, String key) {
         if (ConfigAPI.CONFIG.lang.containsKey(lang)) {
             if (ConfigAPI.CONFIG.lang.get(lang).has(key)) {
                 return ConfigAPI.CONFIG.lang.get(lang).get(key).getAsString(); 
             } else {
-                ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE, "The default language \"{0}\" doesn''t have the tranlation for the key \"{1}\".", new Object[]{lang, key});
+                ConfigAPI.INSTANCE.getLogger().log(Level.WARNING, "The language \"{0}\" doesn't have the tranlation for the key \"{1}\".", new Object[]{lang, key});
+                return null;
             }
-        }
-        return "Missing language key \"" + key + "\", please contact an admin.";
+        } else return null;
     }
 
     public static String getValue(Plugin plugin, String lang, String key) {
@@ -60,11 +67,11 @@ public class Language {
     }
 
     public static String getValue(Plugin plugin, Player p, String key) {
-        return getValueI(plugin, getLangCode(p), key);
+        return getValueI(plugin, getLangCode(plugin, p), key);
     }
 
     public static String getValue(Plugin plugin, Player p, String key, boolean prefix) {
-        String lang = getLangCode(p);
+        String lang = getLangCode(plugin, p);
         if (prefix) {
             return getPrefix(plugin, lang) + " " + getValueI(plugin, lang, key);
         } else {

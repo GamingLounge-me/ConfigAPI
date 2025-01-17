@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.apache.maven.artifact.repository.metadata.Plugin;
+import org.bukkit.plugin.Plugin;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

@@ -10,6 +10,32 @@ Plugin API that allows to register configs and get messages in the correct langu
 
 ## How to
 
+### Install
+
+1. Clone the repository.
+2. Build the plugin.
+3. Put the plugin in the /build/libs/ folder.
+4. Change the build.gradle and Paper-Plugin.yml
+
+**build.gradle**:
+
+```
+dependencies {
+    compileOnly files("build/libs/ConfigAPI-0.0.jar")
+}
+```
+
+**Paper-Plugin.yml**:
+
+```yml
+dependencies:
+  server:
+    ConfigAPI:
+      load: BEFORE
+      required: true
+      join-classpath: true
+```
+
 "this" will always refer to the plugin.
 
 ### How does an language file look?

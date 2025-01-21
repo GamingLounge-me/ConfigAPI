@@ -30,18 +30,13 @@ public final class LoadConfig {
     }
 
     public static void registerLanguage(Plugin plugin, String file, InputStream is) {
-        file = "lang/" + file;
-        registerConfig(plugin, file, is);
+        Map<String, InputStream> lang = new HashMap<>();
+        lang.put(file, is);
+        registerConfig(plugin, "lang",lang);
     }
 
     public static void registerLanguage(Plugin plugin, Map<String, InputStream> langs) {
         registerConfig(plugin, "lang",langs);
-    }
-
-    private static void registerConfig(Plugin plugin, String file, InputStream is) {
-        Map<String, InputStream> lang = new HashMap<>();
-        lang.put(file, is);
-        registerConfig(plugin, "lang",lang);
     }
 
     private static void registerConfig(Plugin plugin, String subFolder, Map<String, InputStream> langs) {
@@ -49,7 +44,7 @@ public final class LoadConfig {
         if (!folder.exists()) folder.mkdir();
 
         File subfolder = new File(folder, subFolder);
-        if (!folder.exists()) folder.mkdir();
+        if (!subfolder.exists()) subfolder.mkdir();
         
         for (Map.Entry<String, InputStream> entry : langs.entrySet()) {
             File file = new File(subfolder, entry.getKey());
@@ -82,7 +77,7 @@ public final class LoadConfig {
             is.transferTo(fos);
             fos.flush();
         } catch (IOException ioe) {
-            // ignore
+            ConfigAPI.INSTANCE.getLogger().log(Level.WARNING, "Restart to try to write file again", ioe);
         }
     }
 

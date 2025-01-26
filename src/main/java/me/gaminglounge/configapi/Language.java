@@ -11,15 +11,18 @@ public class Language {
         String pluginName = plugin.getName();
 
         String playerLang = getKey(lang, "prefix");
-        if (playerLang != null) return playerLang;
+        if (playerLang != null)
+            return playerLang;
 
         String defaultLang = getKey(pluginName + ":" + "en_US", "prefix");
-        if (defaultLang != null) return defaultLang;
+        if (defaultLang != null)
+            return defaultLang;
 
-        ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE, "Missing language key \"prefix\" in {1} and the default language, please contact an admin.", new Object[]{lang});
+        ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE,
+                "Missing language key \"prefix\" in " + lang + " and the default language, please contact an admin.");
         return null;
     }
-    
+
     private static String getLangCode(Plugin plugin, Player p) {
         String locale = plugin.getName() + ":" + p.locale().toString();
         if (!ConfigAPI.CONFIG.lang.containsKey(locale)) {
@@ -30,14 +33,17 @@ public class Language {
 
     private static String getValueI(Plugin plugin, String lang, String key) {
         String playerLang = getKey(lang, key);
-        if (playerLang != null) return playerLang;
+        if (playerLang != null)
+            return playerLang;
 
         lang = plugin.getName() + ":" + "en_US";
         if (ConfigAPI.CONFIG.lang.containsKey(lang)) {
             if (ConfigAPI.CONFIG.lang.get(lang).has(key)) {
-                return ConfigAPI.CONFIG.lang.get(lang).get(key).getAsString(); 
+                return ConfigAPI.CONFIG.lang.get(lang).get(key).getAsString();
             } else {
-                ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE, "The default language \"{0}\" doesn't have the tranlation for the key \"{1}\".", new Object[]{lang, key});
+                ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE,
+                        "The default language \"" + lang + "\" doesn't have the tranlation for the key \"" + key
+                                + "\".");
             }
         }
         return "Missing language key \"" + key + "\" for \"" + lang + "\", please contact an admin.";
@@ -46,12 +52,14 @@ public class Language {
     private static String getKey(String lang, String key) {
         if (ConfigAPI.CONFIG.lang.containsKey(lang)) {
             if (ConfigAPI.CONFIG.lang.get(lang).has(key)) {
-                return ConfigAPI.CONFIG.lang.get(lang).get(key).getAsString(); 
+                return ConfigAPI.CONFIG.lang.get(lang).get(key).getAsString();
             } else {
-                ConfigAPI.INSTANCE.getLogger().log(Level.WARNING, "The language \"{0}\" doesn't have the tranlation for the key \"{1}\".", new Object[]{lang, key});
+                ConfigAPI.INSTANCE.getLogger().log(Level.WARNING,
+                        "The language \"" + lang + "\" doesn't have the tranlation for the key \"" + key + "\".");
                 return null;
             }
-        } else return null;
+        } else
+            return null;
     }
 
     public static String getValue(Plugin plugin, String lang, String key) {

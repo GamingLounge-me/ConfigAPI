@@ -52,7 +52,7 @@ public final class LoadConfig {
                 writeConf(file, entry.getValue());
             } else {
                 JsonObject json = loadFileToJsonObject(file);
-                JsonObject n = loadJsonObjektFrominputStream(entry.getValue());
+                JsonObject n = loadJsonObjectFrominputStream(entry.getValue());
 
                 if (json == null || n == null || json == n) return;
                 if (json.keySet().equals(n.keySet())) return;

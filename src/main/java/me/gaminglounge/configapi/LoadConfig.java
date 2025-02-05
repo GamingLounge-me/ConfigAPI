@@ -111,7 +111,7 @@ public final class LoadConfig {
 
     }
 
-    private static JsonObject loadJsonObjektFrominputStream(InputStream is) {
+    private static JsonObject loadJsonObjectFrominputStream(InputStream is) {
         Gson gson = new Gson();
         try (InputStreamReader isr = new InputStreamReader(is, "utf-8")) {
             return gson.fromJson(isr, JsonObject.class);

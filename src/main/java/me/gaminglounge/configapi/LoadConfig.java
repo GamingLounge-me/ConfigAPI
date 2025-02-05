@@ -126,7 +126,7 @@ public final class LoadConfig {
 
     private static JsonObject loadFileToJsonObject(File file) {
         try {
-            return loadJsonObjektFrominputStream(new FileInputStream(file));
+            return loadJsonObjectFrominputStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             ConfigAPI.INSTANCE.getLogger().log(Level.SEVERE, "File \"" + file.getName() + "\" was not found.", e);
             return null;

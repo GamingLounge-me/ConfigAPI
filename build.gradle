@@ -24,6 +24,8 @@ dependencies {
 
 def targetJavaVersion = 21 // probaly need to change manuelly
 java {
+    withJavadocJar()
+    withSourcesJar()
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
@@ -63,8 +65,8 @@ publishing {
             name = "gamingloungeMeGaminglounge"
             url = uri("https://maven.gaminglounge.me/gaminglounge")
             credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
+                username = project.hasProperty("MAVEN_USERNAME") ? MAVEN_USERNAME : System.getenv("MAVEN_USERNAME")
+                password = project.hasProperty("MAVEN_PASSWORD") ? MAVEN_PASSWORD : System.getenv("MAVEN_PASSWORD")
             }
         }
     }

@@ -18,3 +18,4 @@ bin/
  
 # Package Files 
 *.jar 
+!gradle/wrapper/*.jar

@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'me.gaminglounge'
@@ -46,4 +47,17 @@ processResources {
     filesMatching('paper-plugin.yml') {
         expand props
     }
+}
+
+publishing {
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = "https://maven.pkg.github.com/" + System.getenv("GITHUB_REPOSITORY")
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
 }

@@ -22,7 +22,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 }
 
-def targetJavaVersion = 21 // probaly need to change manuelly
+def targetJavaVersion = 21
 java {
     withJavadocJar()
     withSourcesJar()

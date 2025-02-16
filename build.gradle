@@ -5,15 +5,11 @@ plugins {
 }
 
 group = 'me.gaminglounge'
-version = '0.0.0-SNAPSHOT'
+version = '0.0.0'
 gitVersioning.apply{
     refs {
         tag('v(?<version>.*)') {
             version = '${ref.version}'
-        }
-        branch('main') {
-            describeTagPattern = 'v(?<version>.*)'
-            version = '${describe.tag.version}+${describe.distance}-${commit.short}-SNAPSHOT'
         }
         branch('.*') {
             version = '${ref}-${commit.short}-SNAPSHOT'

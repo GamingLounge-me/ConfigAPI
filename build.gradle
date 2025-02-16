@@ -11,6 +11,9 @@ gitVersioning.apply{
         tag('v(?<version>.*)') {
             version = '${ref.version}'
         }
+        tag('dev(?<version>.*)') {
+            version = 'dev${ref.version}'
+        }
         branch('.*') {
             version = '${ref}-${commit.short}-SNAPSHOT'
         }

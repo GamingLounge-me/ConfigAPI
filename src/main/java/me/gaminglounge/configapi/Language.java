@@ -5,6 +5,10 @@ import java.util.logging.Level;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+/**
+ * Managing of languages and retrieving messages from the langs folder and
+ * files.
+ */
 public class Language {
 
     private static String getPrefix(Plugin plugin, String lang) {
@@ -62,11 +66,31 @@ public class Language {
             return null;
     }
 
+    /**
+     * Getting string from the correct language config file
+     * 
+     * @param plugin the plugin mainly used for namespaces
+     * @param lang   lang code like en_US or de_DE
+     * @param key    lankey which is in the lang file
+     * @return value of the lankey
+     * 
+     */
     public static String getValue(Plugin plugin, String lang, String key) {
         lang = plugin.getName() + ":" + lang;
         return getValueI(plugin, lang, key);
     }
 
+    /**
+     * Getting string from the correct language config file
+     * 
+     * @param plugin the plugin mainly used for namespaces
+     * @param lang   lang code like en_US or de_DE
+     * @param key    lankey which is in the lang file
+     * @param prefix if prefix from lang file ({@code "prefix": "PREFIX"}) shoud be
+     *               placed before the value
+     * @return value of the lankey
+     * 
+     */
     public static String getValue(Plugin plugin, String lang, String key, boolean prefix) {
         lang = plugin.getName() + ":" + lang;
         if (prefix) {
@@ -76,10 +100,30 @@ public class Language {
         }
     }
 
+    /**
+     * Getting string from the correct language config file
+     * 
+     * @param plugin the plugin mainly used for namespaces
+     * @param p      player which will revice the message to get the lang code
+     * @param key    lankey which is in the lang file
+     * @return value of the lankey
+     * 
+     */
     public static String getValue(Plugin plugin, Player p, String key) {
         return getValueI(plugin, getLangCode(plugin, p), key);
     }
 
+    /**
+     * Getting string from the correct language config file
+     * 
+     * @param plugin the plugin mainly used for namespaces
+     * @param p      player which will revice the message to get the lang code
+     * @param key    lankey which is in the lang file
+     * @param prefix if prefix from lang file ({@code "prefix": "PREFIX"}) shoud be
+     *               placed before the value
+     * @return value of the lankey
+     * 
+     */
     public static String getValue(Plugin plugin, Player p, String key, boolean prefix) {
         String lang = getLangCode(plugin, p);
         if (prefix) {

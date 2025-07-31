@@ -2,7 +2,7 @@ name: ConfigAPI
 version: "${version}"
 main: me.gaminglounge.configapi.ConfigAPI
 description: Plugin to handel configuration and different languages.
-api-version: "1.21.4"
+api-version: "1.21.8"
 authors:
   - "Jon1Games"
   - "gkram"

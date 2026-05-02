@@ -36,10 +36,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+    compileOnly "io.papermc.paper:paper-api:26.1.2.build.+"
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 25
 java {
     withJavadocJar()
     withSourcesJar()
@@ -78,14 +78,14 @@ publishing {
                 password = System.getenv("GITHUB_TOKEN")
             }
         }
-        //maven {
-        //    name = "gamingloungeMeGaminglounge"
-        //    url = uri("https://maven.gaminglounge.me/gaminglounge")
-        //    credentials {
-        //        username = project.findProperty("MAVEN_USERNAME") ?: System.getenv("MAVEN_USERNAME")
-        //        password = project.findProperty("MAVEN_PASSWORD") ?: System.getenv("MAVEN_PASSWORD")
-        //    }
-        //}
+        maven {
+            name = "gamingloungeMeGaminglounge"
+            url = uri("https://maven.gaminglounge.me/gaminglounge")
+            credentials {
+                username = project.findProperty("MAVEN_USERNAME") ?: System.getenv("MAVEN_USERNAME")
+                password = project.findProperty("MAVEN_PASSWORD") ?: System.getenv("MAVEN_PASSWORD")
+            }
+        }
     }
     publications {
         gpr(MavenPublication) {

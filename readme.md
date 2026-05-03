@@ -1,4 +1,4 @@
-[![](https://maven.gaminglounge.me/api/badge/latest/gaminglounge/me/gaminglounge/config-api?color=40c14a&name=Config%20API&prefix=v&filter=none:SNAPSHOT)](https://maven.gaminglounge.me/#/gaminglounge/me/gaminglounge/config-api)
+[![](https://maven.gaminglounge.me/api/badge/latest/jon1games/de/jonas/Stuff?color=40c14a&name=Config%20API&prefix=v&filter=none:SNAPSHOT)](https://maven.gaminglounge.me/#/jon1games/de/jonas/Stuff)
 
 # ConfigAPI
 

@@ -22,8 +22,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0 # Required to see tags
       - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:

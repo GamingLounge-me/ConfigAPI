@@ -1,8 +1,8 @@
 name: ConfigAPI
 version: "${version}"
 main: me.gaminglounge.configapi.ConfigAPI
-description: Plugin to handel configuration and different languages.
-api-version: "26.2"
+description: Plugin to handle configuration and different languages.
+api-version: "26.3"
 authors:
   - "Jon1Games"
   - "gkram"
